@@ -7,7 +7,7 @@ use fs_extra::file::{copy , CopyOptions};
 use libloading::Library;  
 
 const LIB_PATH: &'static str = "./target/debug/message.dll";
-const LIB_TEMP_PATH: &'static str = "../libmessage_temp.dll";
+const LIB_TEMP_PATH: &'static str = "./target/debug/message_loaded.dll";
 
 struct Application(Library);
 impl Application {
@@ -35,7 +35,7 @@ fn main() {
         .unwrap_or_else(|error| panic!("{}", error)));
 
     let mut last_modified = std::fs::metadata(LIB_PATH).unwrap().modified().unwrap();
-    let dur = std::time::Duration::from_secs(3);
+    let dur = std::time::Duration::from_secs(1);
     
     loop {
         std::thread::sleep(dur);
@@ -50,6 +50,7 @@ fn swap_module_on_windows(mut app: Application, last_modified: SystemTime) -> Re
     let modified = std::fs::metadata(LIB_PATH)?.modified()?;
     
     if modified > last_modified {
+        println!("message lib was modified, hot swapping the lib");
         drop(app);
         let options: CopyOptions = CopyOptions {
             overwrite: true,

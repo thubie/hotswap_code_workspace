@@ -1,0 +1,10 @@
+[package]
+name = "message"
+version = "0.1.0"
+authors = ["thubi <thubie90@live.nl>"]
+
+[dependencies]
+
+
+[lib]
+crate-type = ["dylib"]

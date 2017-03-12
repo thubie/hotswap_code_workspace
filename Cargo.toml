@@ -1,0 +1,11 @@
+[package]
+name = "workspaces"
+version = "0.1.0"
+authors = ["thubi <thubie90@live.nl>"]
+
+[dependencies]
+libloading = "0.3.2"
+fs_extra = "1.0.0"
+message = {path = "message"}
+
+[workspace]
